@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 
 const Title = ({ title, desc }) => {
@@ -9,10 +9,11 @@ const Title = ({ title, desc }) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-3xl sm:text-5xl font-medium"
+        className="text-4xl sm:text-7xl font-extrabold text-indigo-300 text-center"
       >
-        {title}
+        <BubbleText>{title}</BubbleText>
       </motion.h2>
+
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -23,6 +24,81 @@ const Title = ({ title, desc }) => {
         {desc}
       </motion.p>
     </>
+  );
+};
+
+const BubbleText = ({ children }) => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const spans = container.querySelectorAll("span");
+
+    const handleEnter = (span) => {
+      span.style.fontWeight = "900";
+      span.style.color = "rgb(238, 242, 255)";
+
+      const left = span.previousElementSibling;
+      const right = span.nextElementSibling;
+
+      if (left) {
+        left.style.fontWeight = "500";
+        left.style.color = "rgb(199, 210, 254)";
+      }
+      if (right) {
+        right.style.fontWeight = "500";
+        right.style.color = "rgb(199, 210, 254)";
+      }
+    };
+
+    const handleLeave = (span) => {
+      span.style.fontWeight = "200";
+      span.style.color = "rgb(165, 180, 252)";
+
+      const left = span.previousElementSibling;
+      const right = span.nextElementSibling;
+
+      if (left) {
+        left.style.fontWeight = "200";
+        left.style.color = "rgb(165, 180, 252)";
+      }
+      if (right) {
+        right.style.fontWeight = "200";
+        right.style.color = "rgb(165, 180, 252)";
+      }
+    };
+
+    spans.forEach((span) => {
+      const enter = () => handleEnter(span);
+      const leave = () => handleLeave(span);
+      span.addEventListener("mouseenter", enter);
+      span.addEventListener("mouseleave", leave);
+
+      // Cleanup when unmounting
+      return () => {
+        span.removeEventListener("mouseenter", enter);
+        span.removeEventListener("mouseleave", leave);
+      };
+    });
+  }, []);
+
+  return (
+    <span ref={containerRef} className="hover-text">
+      {children.split("").map((char, idx) => (
+        <span
+          key={idx}
+          style={{
+            transition: "0.35s font-weight, 0.35s color",
+            fontWeight: 200,
+            color: "rgb(165, 180, 252)",
+          }}
+        >
+          {char}
+        </span>
+      ))}
+    </span>
   );
 };
 
