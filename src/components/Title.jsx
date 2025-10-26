@@ -9,7 +9,7 @@ const Title = ({ title, desc }) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-4xl sm:text-7xl font-extrabold text-indigo-300 text-center"
+        className="text-4xl sm:text-7xl font-extrabold text-secondary dark:text-secondary text-center"
       >
         <BubbleText>{title}</BubbleText>
       </motion.h2>
@@ -19,7 +19,7 @@ const Title = ({ title, desc }) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
         viewport={{ once: true }}
-        className="max-w-lg text-center text-gray-500 dark:text-white/75 mb-6"
+        className="max-w-lg text-center text-gray-500 dark:text-white/80 mb-6"
       >
         {desc}
       </motion.p>
@@ -38,35 +38,35 @@ const BubbleText = ({ children }) => {
 
     const handleEnter = (span) => {
       span.style.fontWeight = "900";
-      span.style.color = "rgb(238, 242, 255)";
+      span.style.color = "--color-secondary";
 
       const left = span.previousElementSibling;
       const right = span.nextElementSibling;
 
       if (left) {
         left.style.fontWeight = "500";
-        left.style.color = "rgb(199, 210, 254)";
+        left.style.color = "--color-secondary";
       }
       if (right) {
         right.style.fontWeight = "500";
-        right.style.color = "rgb(199, 210, 254)";
+        right.style.color = "--color-secondary";
       }
     };
 
     const handleLeave = (span) => {
-      span.style.fontWeight = "200";
-      span.style.color = "rgb(165, 180, 252)";
+      span.style.fontWeight = "800";
+      span.style.color = "--color-secondary";
 
       const left = span.previousElementSibling;
       const right = span.nextElementSibling;
 
       if (left) {
-        left.style.fontWeight = "200";
-        left.style.color = "rgb(165, 180, 252)";
+        left.style.fontWeight = "800";
+        left.style.color = "--color-secondary";
       }
       if (right) {
-        right.style.fontWeight = "200";
-        right.style.color = "rgb(165, 180, 252)";
+        right.style.fontWeight = "800";
+        right.style.color = "--color-secondary";
       }
     };
 
@@ -91,8 +91,8 @@ const BubbleText = ({ children }) => {
           key={idx}
           style={{
             transition: "0.35s font-weight, 0.35s color",
-            fontWeight: 200,
-            color: "rgb(165, 180, 252)",
+            fontWeight: 800,
+            color: "--color-secondary",
           }}
         >
           {char}

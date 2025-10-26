@@ -38,12 +38,6 @@ const ContactUs = () => {
       viewport={{ once: true }}
       className="relative flex flex-col justify-center items-center gap-12 min-h-screen px-4 sm:px-12 lg:px-24 xl:px-40 py-20 text-gray-700 dark:text-white bg-white dark:bg-black overflow-hidden"
     >
-      {/* Background element (optional) */}
-      <img
-        src={assets.bgImage4}
-        alt=""
-        className="absolute -bottom-40 -left-40 sm:-bottom-60 sm:-left-60 -z-10 opacity-40 dark:hidden"
-      />
 
       {/* Title section */}
       <Title
@@ -58,11 +52,11 @@ const ContactUs = () => {
         transition={{ duration: 0.5, delay: 0.4 }}
         viewport={{ once: true }}
         onSubmit={onSubmit}
-        className="grid sm:grid-cols-2 gap-5 max-w-2xl w-full bg-white/10 dark:bg-white/5 p-6 sm:p-8 rounded-2xl backdrop-blur-md shadow-md"
+        className="grid sm:grid-cols-2 gap-5 max-w-2xl w-full bg-white/10 dark:bg-secondary/50 p-6 sm:p-8 rounded-2xl backdrop-blur-md shadow-md"
       >
         <div>
           <p className="mb-2 text-sm font-medium">Your name</p>
-          <div className="flex items-center pl-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white/20 dark:bg-black/20">
+          <div className="flex items-center pl-3 rounded-lg border border-gray-300 dark:border-sec-soft bg-white/20 dark:bg-black/20">
             <img src={assets.person_icon} alt="" className="w-5 opacity-80" />
             <input
               name="name"
@@ -76,7 +70,7 @@ const ContactUs = () => {
 
         <div>
           <p className="mb-2 text-sm font-medium">Email address</p>
-          <div className="flex items-center pl-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white/20 dark:bg-black/20">
+          <div className="flex items-center pl-3 rounded-lg border border-gray-300  dark:border-sec-soft  bg-white/20 dark:bg-black/20">
             <img src={assets.email_icon} alt="" className="w-5 opacity-80" />
             <input
               name="email"
@@ -94,17 +88,17 @@ const ContactUs = () => {
             name="message"
             rows={6}
             placeholder="Enter your message"
-            className="w-full p-3 text-sm outline-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white/20 dark:bg-black/20 resize-none"
+            className="w-full p-3 text-sm outline-none rounded-lg border border-gray-300  dark:border-sec-soft  bg-white/20 dark:bg-black/20 resize-none"
             required
           />
         </div>
 
         <button
           type="submit"
-          className="sm:col-span-2 mx-auto flex items-center gap-2 bg-[#4d8cea] text-white text-sm px-10 py-3 rounded-full cursor-pointer hover:scale-[1.03] transition-transform duration-300"
+          className="sm:col-span-2 mx-auto flex items-center gap-2 bg-secondary text-black text-sm px-10 py-3 rounded-full cursor-pointer hover:scale-[1.03] transition-transform duration-300 font-bold"
         >
           Submit
-          <img src={assets.arrow_icon} alt="" className="w-4" />
+          <img src={assets.arrow_icon} alt="" className="w-4 filter grayscale brightness-0" />
         </button>
       </motion.form>
     </motion.div>

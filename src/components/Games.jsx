@@ -65,8 +65,8 @@ const Games = () => {
                 className="w-full h-full object-cover rounded-2xl"
               />
             </div>
-            <h3 className="mt-4 mb-2 text-lg font-semibold">{game.title}</h3>
-            <p className="text-sm opacity-70 w-5/6 mx-auto">{game.description}</p>
+            <h3 className="mt-4 mb-2 text-lg font-semibold text-secondary">{game.title}</h3>
+            <p className="text-sm opacity-70 w-5/6 ">{game.description}</p>
           </motion.div>
         ))}
       </div>

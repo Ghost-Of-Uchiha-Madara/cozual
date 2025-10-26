@@ -74,7 +74,7 @@ const TiltCard = () => {
       className="
         relative
         rounded-2xl 
-        bg-gradient-to-br from-indigo-300 to-violet-300
+        bg-linear-to-br from-secondary to-secondary/70
         transition-transform duration-300 ease-out
         mx-auto
         w-[90vw] max-w-[320px] sm:max-w-[400px] md:max-w-[680px]

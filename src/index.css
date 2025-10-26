@@ -1,20 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* All imports first */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import "tailwindcss";
 
+/* Then custom variants and layers */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   h1 {
-    font-weight: 800; 
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 700;
+  }
+  h2 {
+    font-family: "Montserrat", sans-serif;
+  }
+  h3{
+    font-family: "Montserrat", sans-serif;
+  }
+  h4{
+    font-family: "Montserrat", sans-serif;
+  }
+  p{
+    font-family: "Montserrat", sans-serif;
   }
 }
 
-*{
-  font-family: "Montserrat", sans-serif;
+/* Global styles */
+* {
   cursor: none;
 }
 
 @theme {
-  --color-primary: #0A0E11;
+  --color-primary: #0a0e11;
+  --color-secondary: #a1ff4f;
+  --color-sec-bright: #8cff33;
+  --color-sec-soft: #b3ff66;
+  --color-sec-mild: #99ff66;
+  --color-sec-light: #aaff80;
 }
-
