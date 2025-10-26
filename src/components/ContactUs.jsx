@@ -9,7 +9,6 @@ const ContactUs = () => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-
     formData.append("access_key", "d0803d60-0b6d-48ec-a680-a0a05ebc7d66");
 
     try {
@@ -17,7 +16,6 @@ const ContactUs = () => {
         method: "POST",
         body: formData,
       });
-
       const data = await response.json();
 
       if (data.success) {
@@ -33,49 +31,58 @@ const ContactUs = () => {
 
   return (
     <motion.div
+      id="contact"
       initial="hidden"
       whileInView="visible"
       transition={{ staggerChildren: 0.2 }}
       viewport={{ once: true }}
-      id="contact"
-      className="flex flex-col items-center gap-7 px-4 sm:px-12 lg:px-24 xl:px-40 pt-30 text-gray-700 dark:text-white"
+      className="relative flex flex-col justify-center items-center gap-12 min-h-screen px-4 sm:px-12 lg:px-24 xl:px-40 py-20 text-gray-700 dark:text-white bg-white dark:bg-black overflow-hidden"
     >
-      <Title
-        title="Reach out to us"
-        desc="We’d love to hear from you! Whether you have questions, feedback, or just want to say hello, feel free to reach out to us. Your thoughts and ideas help us create better experiences for everyone."
+      {/* Background element (optional) */}
+      <img
+        src={assets.bgImage4}
+        alt=""
+        className="absolute -bottom-40 -left-40 sm:-bottom-60 sm:-left-60 -z-10 opacity-40 dark:hidden"
       />
 
+      {/* Title section */}
+      <Title
+        title="Reach out to us"
+        desc="We’d love to hear from you! Whether you have questions, feedback, or just want to say hello, feel free to reach out. Your thoughts help us create better experiences for everyone."
+      />
+
+      {/* Contact form */}
       <motion.form
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
         viewport={{ once: true }}
         onSubmit={onSubmit}
-        className="grid sm:grid-cols-2 gap-3 sm:gap-5 max-w-2xl w-full"
+        className="grid sm:grid-cols-2 gap-5 max-w-2xl w-full bg-white/10 dark:bg-white/5 p-6 sm:p-8 rounded-2xl backdrop-blur-md shadow-md"
       >
         <div>
           <p className="mb-2 text-sm font-medium">Your name</p>
-          <div className="flex pl-3 rounded-lg border border-gray-300 dark:border-gray-600">
-            <img src={assets.person_icon} alt="" />
+          <div className="flex items-center pl-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white/20 dark:bg-black/20">
+            <img src={assets.person_icon} alt="" className="w-5 opacity-80" />
             <input
               name="name"
               type="text"
               placeholder="Enter your name"
-              className="w-full p-3 text-sm outline-none"
+              className="w-full p-3 text-sm outline-none bg-transparent"
               required
             />
           </div>
         </div>
 
         <div>
-          <p className="mb-2 text-sm font-medium">Email id</p>
-          <div className="flex pl-3 rounded-lg border border-gray-300 dark:border-gray-600">
-            <img src={assets.email_icon} alt="" />
+          <p className="mb-2 text-sm font-medium">Email address</p>
+          <div className="flex items-center pl-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white/20 dark:bg-black/20">
+            <img src={assets.email_icon} alt="" className="w-5 opacity-80" />
             <input
               name="email"
               type="email"
               placeholder="Enter your email"
-              className="w-full p-3 text-sm outline-none"
+              className="w-full p-3 text-sm outline-none bg-transparent"
               required
             />
           </div>
@@ -85,18 +92,19 @@ const ContactUs = () => {
           <p className="mb-2 text-sm font-medium">Message</p>
           <textarea
             name="message"
-            rows={8}
+            rows={6}
             placeholder="Enter your message"
-            className="w-full p-3 text-sm outline-none rounded-lg border border-gray-300 dark:border-gray-600"
+            className="w-full p-3 text-sm outline-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white/20 dark:bg-black/20 resize-none"
             required
           />
         </div>
 
         <button
           type="submit"
-          className="w-max flex gap-2 bg-primary text-white text-sm px-10 py-3 rounded-full cursor-pointer hover:scale-103 transition-all"
+          className="sm:col-span-2 mx-auto flex items-center gap-2 bg-[#4d8cea] text-white text-sm px-10 py-3 rounded-full cursor-pointer hover:scale-[1.03] transition-transform duration-300"
         >
-          Submit <img src={assets.arrow_icon} alt="" className="w-4" />
+          Submit
+          <img src={assets.arrow_icon} alt="" className="w-4" />
         </button>
       </motion.form>
     </motion.div>
