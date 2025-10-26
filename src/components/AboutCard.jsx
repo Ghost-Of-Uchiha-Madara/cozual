@@ -1,51 +1,109 @@
 import React, { useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 
-const AboutCard = ({ about, index }) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [visible, setVisible] = useState(false);
+const AboutCard = ({ about }) => {
+  const cardRef = useRef(null);
 
-  const diveRef = useRef(null);
+  // Mouse position normalized
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+
+  // Softer spring for smooth floating effect
+  const springConfig = { damping: 30, stiffness: 70 };
+  const x = useSpring(mouseX, springConfig);
+  const y = useSpring(mouseY, springConfig);
+
+  // Rotation mapping
+  const rotateX = useTransform(y, [0, 1], [15, -15]);
+  const rotateY = useTransform(x, [0, 1], [-15, 15]);
+
+  // Glow position
+  const glowX = useTransform(x, (val) => val * 280 - 140);
+  const glowY = useTransform(y, (val) => val * 380 - 190);
+
+  const [hovered, setHovered] = useState(false);
+
   const handleMouseMove = (e) => {
-    const bounds = diveRef.current.getBoundingClientRect();
-    const x = e.clientX - bounds.left;
-    const y = e.clientY - bounds.top;
-    setPosition({ x, y });
+    const bounds = cardRef.current.getBoundingClientRect();
+    const posX = (e.clientX - bounds.left) / bounds.width;
+    const posY = (e.clientY - bounds.top) / bounds.height;
+    mouseX.set(posX);
+    mouseY.set(posY);
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  };
+
+  const handleMouseEnter = () => {
+    setHovered(true);
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.4 }}
-      viewport={{ once: true }}
-      className="relative flex overflow-hidden max-w-lg m-2 sm:m-4 rounded-xl border border-gray-200 dark:border-secondary/50 shadow-2x1 shdow-gray-100 dark:shadow-white/10"
-      onMouseEnter={() => setVisible(true)}
-      onMouseLeave={() => setVisible(false)}
-      ref={diveRef}
+      ref={cardRef}
+      className="relative w-[280px] h-[380px] m-4 rounded-2xl cursor-pointer"
       onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        perspective: 1000,
+      }}
     >
-      <div
-        className={`pointer-events-none blur-2xl rounded-full bg-linear-to-r from-sec-bright via-sec-light to-sec-mild w-[300px] h-[300px] absolute z-0 transition-opacity duration-500 mix-blend-lighten ${
-          visible ? "opacity-70" : "opacity-0"
-        }`}
-        style={{ top: position.y - 150, left: position.x - 150 }}
-      />
+      {/* Tilt wrapper */}
+      <motion.div
+        className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-secondary/20 border border-gray-200 dark:border-gray-700"
+        style={{
+          rotateX,
+          rotateY,
+          scale: hovered ? 1.05 : 1,
+          transformStyle: "preserve-3d",
+          transition: "scale 0.4s ease",
+          backfaceVisibility: "hidden",
+        }}
+      >
+        {/* Back overlay / shadow */}
+        <motion.div
+          className="absolute inset-0 rounded-2xl pointer-events-none"
+          animate={{
+            background: hovered
+              ? "rgba(0,0,0,0.06) dark:rgba(255,255,255,0.18)"
+              : "transparent",
+            boxShadow: hovered
+              ? "0 25px 50px rgba(0,0,0,0.2), 0 0 60px rgba(0,0,0,0.1) dark:0 25px 50px rgba(255,255,255,0.3)"
+              : "0 10px 20px rgba(0,0,0,0.1) dark:0 10px 20px rgba(255,255,255,0.08)",
+          }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
+        />
 
-      <div className="flex items-center gap-10 p-8 hover:p-7.5 hover:m-0.5 transition-all rounded-[10px] bg-white dark:bg-secondary/20 z-10 relative">
-        <div className="bg-gray-100 dark:bg-green-800 rounded-full">
-          <img
-            src={about.icon}
-            alt=""
-            className="max-w-24 bg-white dark:bg-sec-soft rounded-full m-2"
-          />
-        </div>
+        {/* Moving glow */}
+        <motion.div
+          className="absolute w-[280px] h-[380px] rounded-full blur-3xl opacity-50 mix-blend-lighten pointer-events-none bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-300"
+          style={{
+            top: glowY,
+            left: glowX,
+          }}
+          animate={{
+            opacity: hovered ? 0.7 : 0,
+          }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
+        />
 
-        <div className="flex-1">
-          <h3 className="font-bold text-secondary">{about.title}</h3>
-          <p className="text-sm mt-2">{about.description}</p>
+        {/* Card content */}
+        <div className="relative flex flex-col items-center text-center p-6 gap-4 h-full justify-center">
+          <div className="bg-gray-100 dark:bg-gray-800 rounded-full p-4">
+            <img src={about.icon} alt="" className="w-16 h-16 object-contain" />
+          </div>
+          <h3 className="font-bold text-lg text-gray-900 dark:text-white">
+            {about.title}
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300 text-sm">
+            {about.description}
+          </p>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
