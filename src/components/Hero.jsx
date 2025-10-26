@@ -40,7 +40,7 @@ const Hero = () => {
         viewport={{ once: true }}
         className="text-sm sm:text-lg font-medium text-gray-500 dark:text-white/75 max-w-4/5 sm:max-w-lg pb-3"
       >
-        Hey there! Hey friend! Our cozy game studio crafts warm, inviting worlds
+        Hey friend! Our cozy game studio crafts warm, inviting worlds
         just for you. Kick back and jump into chill adventures made to spark
         joy.
       </motion.p>
