@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  h1 {
+    font-weight: 800; 
+  }
+}
+
+*{
+  font-family: "Montserrat", sans-serif;
+  cursor: none;
+}
+
+@theme {
+  --color-primary: #0A0E11;
+}
