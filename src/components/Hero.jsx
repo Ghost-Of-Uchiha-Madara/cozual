@@ -1,6 +1,7 @@
 import React from "react";
 import assets from "../assets/assets";
 import { motion } from "motion/react";
+import TiltCard from "./TiltCard";
 
 const Hero = () => {
   return (
@@ -52,7 +53,8 @@ const Hero = () => {
         viewport={{ once: true }}
         className="relative"
       >
-        <img src={assets.hero_img} alt="" className="w-full max-w-6xl" />
+        {/* <img src={assets.hero_img} alt="" className="w-full max-w-6xl" /> */}
+        <TiltCard />
         <img
           src={assets.bgImage1}
           alt=""
