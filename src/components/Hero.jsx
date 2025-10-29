@@ -1,50 +1,51 @@
 import React from "react";
 import assets from "../assets/assets";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";          // <-- correct import
 import TiltCard from "./TiltCard";
 
 const Hero = () => {
   return (
-    <div
+    /* --------------------------------------------------------------
+       1. Full-screen wrapper – 100vh on desktop, min-h-screen on mobile
+       -------------------------------------------------------------- */
+    <section
       id="studio"
-      className="flex flex-col justify-center items-center gap-6 min-h-screen px-4 sm:px-12 lg:px-24 xl:px-40 text-center w-full overflow-hidden text-gray-700 dark:text-white relative"
+      className={`
+        flex flex-col justify-center items-center gap-6
+        /* desktop → full viewport height */
+        md:h-screen
+        /* mobile → keep the original min-height */
+        min-h-screen
+        px-4 sm:px-12 lg:px-24 xl:px-40
+        text-center w-full
+        overflow-hidden
+        text-gray-700 dark:text-white
+        relative
+      `}
     >
-      {/* <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.7 }}
-        viewport={{ once: true }}
-        className="inline-flex items-center gap-2 border border-secondary p-1.5 pr-4 rounded-full bg-white/50 dark:bg-white/10 backdrop-blur-md"
-      >
-        <img src={assets.group_profile} alt="" className="w-20" />
-        <p className="text-xs font-medium ">Overall 10M+ downloads</p>
-      </motion.div> */}
-
+      {/* --------------------------------------------------------------
+         2. Title – same animation, responsive font sizes
+         -------------------------------------------------------------- */}
       <motion.h1
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.8 }}
         viewport={{ once: true }}
-        className="text-4xl sm:text-5xl md:text-8xl xl:text-[184px] xl:leading-[155px] max-w-5xl"
+        className={`
+          text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[184px]
+          xl:leading-[155px] max-w-5xl
+        `}
       >
         STEP INTO{" "}
-        <span className="bg-linear-to-r from-secondary/90 to-secondary bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-secondary/90 to-secondary bg-clip-text text-transparent">
           WORLDS
         </span>{" "}
         MADE FOR YOU
       </motion.h1>
 
-      {/* <motion.p
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 1 }}
-        viewport={{ once: true }}
-        className="text-sm sm:text-lg font-medium text-gray-500 dark:text-white/75 max-w-4/5 sm:max-w-lg pb-3"
-      >
-        Hey friend! Our cozy game studio crafts warm, inviting worlds
-        just for you. Kick back and jump into chill adventures made to spark joy.
-      </motion.p> */}
-
+      {/* --------------------------------------------------------------
+         3. TiltCard + decorative background image
+         -------------------------------------------------------------- */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -53,13 +54,8 @@ const Hero = () => {
         className="relative mt-6"
       >
         <TiltCard />
-        <img
-          src={assets.bgImage1}
-          alt=""
-          className="absolute -top-40 -right-40 sm:-top-100 sm:-right-70 -z-10 dark:hidden"
-        />
       </motion.div>
-    </div>
+    </section>
   );
 };
 

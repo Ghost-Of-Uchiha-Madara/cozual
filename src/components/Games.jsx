@@ -1,76 +1,133 @@
-import React from "react";
-import Title from "./Title";
+import React, { useRef } from "react";
+import { motion, useMotionValue, useTransform } from "motion/react";
 import assets from "../assets/assets";
-import { motion } from "motion/react";
+
+const GameCard = ({ label, title, image, delay }) => {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useTransform(y, [-100, 100], [15, -15]);
+  const rotateY = useTransform(x, [-100, 100], [-15, 15]);
+
+  const handleMouseMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left - rect.width / 2;
+    const offsetY = e.clientY - rect.top - rect.height / 2;
+    x.set(offsetX);
+    y.set(offsetY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-gradient-to-b from-neutral-900 to-neutral-800 cursor-pointer"
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+        transition: { delay, duration: 0.8, ease: "easeOut" },
+      }}
+      viewport={{ once: true }}
+      whileHover={{ scale: 1.03 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Image */}
+      <div className="relative w-full h-[420px] overflow-hidden">
+        <motion.img
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover"
+          whileHover={{ scale: 1.08 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          style={{ transformOrigin: "center" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
+      </div>
+
+      {/* Text */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+        <p className="uppercase text-xs font-bold tracking-wider text-pink-500 mb-2">
+          • {label}
+        </p>
+        <h3 className="text-2xl sm:text-3xl font-extrabold leading-tight">
+          {title}
+        </h3>
+      </div>
+    </motion.div>
+  );
+};
 
 const Games = () => {
   const gameData = [
     {
-      title: "Game One",
-      description:
-        "An exciting adventure game that takes you through magical lands.",
+      label: "PLAY",
+      title: "BUILD YOUR KINGDOM",
       image: assets.game_one,
+      delay: 0.1,
     },
     {
-      title: "Game Two",
-      description: "A relaxing puzzle game to unwind and challenge your mind.",
+      label: "WIN",
+      title: "CRUSH YOUR OPPONENTS",
       image: assets.game_two,
+      delay: 0.3,
     },
     {
-      title: "Game Three",
-      description:
-        "A fun-filled platformer with vibrant graphics and engaging gameplay.",
+      label: "EARN",
+      title: "EARN REAL REWARDS",
       image: assets.game_three,
+      delay: 0.5,
     },
   ];
 
   return (
-    <motion.div
+    <section
       id="games"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      transition={{ staggerChildren: 0.2 }}
-      className="relative flex flex-col justify-center items-center gap-12 min-h-screen px-4 sm:px-12 lg:px-24 xl:px-40 py-20 text-gray-700 dark:text-white bg-white dark:bg-black overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center bg-[#0e0e0e] text-white overflow-hidden"
     >
-      {/* Background image (optional, remove if not needed) */}
-      <img
-        src={assets.bgImage3}
-        alt=""
-        className="absolute -top-40 -right-40 sm:-top-60 sm:-right-60 -z-10 opacity-50 dark:hidden"
-      />
+      {/* Section Title */}
+      <motion.h1
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.8, ease: "easeOut" },
+        }}
+        viewport={{ once: true }}
+        className="text-6xl sm:text-7xl lg:text-8xl font-extrabold tracking-wider text-center mb-16"
+      >
+        PLAY. WIN. EARN.
+      </motion.h1>
 
-      {/* Section title */}
-      <Title
-        title="Games"
-        desc="Dive into cozy, inviting worlds with simple yet captivating gameplay.
-        Each title offers fun, relaxing adventures for players of all ages."
-      />
-
-      {/* Game cards grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
-        {gameData.map((game, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-            viewport={{ once: true }}
-            className="hover:scale-[1.03] transition-transform duration-500 cursor-pointer"
-          >
-            <div className="overflow-hidden rounded-2xl shadow-md">
-              <img
-                src={game.image}
-                alt={game.title}
-                className="w-full h-full object-cover rounded-2xl"
-              />
-            </div>
-            <h3 className="mt-4 mb-2 text-lg font-semibold text-secondary">{game.title}</h3>
-            <p className="text-sm opacity-70 w-5/6 ">{game.description}</p>
-          </motion.div>
+      {/* Cards Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-6 sm:px-12 max-w-7xl">
+        {gameData.map((game, i) => (
+          <GameCard key={i} {...game} />
         ))}
       </div>
-    </motion.div>
+
+      {/* CTA */}
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.97 }}
+        className="mt-16 px-8 py-4 bg-white text-black font-bold rounded-full uppercase tracking-wide hover:bg-neutral-200 transition-all"
+      >
+        Create Your Ink ID
+      </motion.button>
+
+      {/* Smooth fade at bottom for transition to next section */}
+      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/90 to-transparent pointer-events-none" />
+    </section>
   );
 };
 
