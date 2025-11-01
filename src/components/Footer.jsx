@@ -5,25 +5,25 @@ import { motion } from "motion/react";
 const Footer = ({ theme }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="bg-slate-50 dark:bg-secondary/40 pt-10 sm:pt-10 px-4 sm:px-10 lg:px-24 xl:px-40"
+      className="bg-slate-50 dark:bg-secondary/40 pt-10 sm:pt-10 px-4 sm:px-10 lg:px-24 xl:px-40 overflow-x-hidden"
     >
       {/* footer top */}
       <div className="flex justify-between lg:items-center max-lg:flex-col gap-10">
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           viewport={{ once: true }}
           className="space-y-5 text-sm text-gray-700 dark:text-gray-400"
         >
           <img
             src={theme === "dark" ? assets.logo_dark : assets.logo}
             className="w-32 sm:w-44"
-            alt=""
+            alt="Cozual Studio Logo"
           />
           <p className="max-w-md">
             Dive into cozy, inviting worlds with simple yet captivating
@@ -31,7 +31,7 @@ const Footer = ({ theme }) => {
             all ages.
           </p>
 
-          <ul className="flex gap-8">
+          <ul className="flex gap-8 flex-wrap">
             <li>
               <a className="hover:text-primary transition-colors" href="#studio">
                 Studio
@@ -59,9 +59,9 @@ const Footer = ({ theme }) => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
           viewport={{ once: true }}
           className="text-gray-600 dark:text-gray-400"
         >
@@ -87,9 +87,9 @@ const Footer = ({ theme }) => {
 
       {/* footer bottom */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
         viewport={{ once: true }}
         className="pb-6 text-sm text-gray-500 flex justify-center sm:justify-between gap-4 flex-wrap"
       >
