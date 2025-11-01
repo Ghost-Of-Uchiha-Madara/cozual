@@ -12,16 +12,15 @@ import { Toaster } from "react-hot-toast";
 gsap.registerPlugin(ScrollSmoother);
 
 const App = () => {
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "light"
-  );
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   const dotRef = useRef(null);
   const outlineRef = useRef(null);
-
   const wrapperRef = useRef(null);
   const contentRef = useRef(null);
 
+  // ✅ Scroll smoother setup
   useEffect(() => {
     const smoother = ScrollSmoother.create({
       wrapper: wrapperRef.current,
@@ -32,14 +31,36 @@ const App = () => {
     return () => smoother.kill();
   }, []);
 
-  // Custom cursor
+  // ✅ Detect touch devices
   useEffect(() => {
+    const checkTouch = () =>
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    setIsTouchDevice(checkTouch());
+  }, []);
+
+  // ✅ Custom cursor (desktop only)
+  useEffect(() => {
+    if (isTouchDevice) return;
+
     const mouse = { x: 0, y: 0 };
     const pos = { x: 0, y: 0 };
+    let cursorVisible = false;
+
     const handleMouseMove = (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
+
+      // ✨ Fade in cursor on first movement
+      if (!cursorVisible) {
+        cursorVisible = true;
+        gsap.to([dotRef.current, outlineRef.current], {
+          opacity: 1,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+      }
     };
+
     document.addEventListener("mousemove", handleMouseMove);
 
     const animate = () => {
@@ -57,53 +78,58 @@ const App = () => {
 
       requestAnimationFrame(animate);
     };
-    animate();
 
+    animate();
     return () => document.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isTouchDevice]);
 
   return (
     <div className="dark:bg-black relative">
       <Toaster />
 
-      {/* 🧷 Navbar OUTSIDE ScrollSmoother → stays fixed forever */}
+      {/* Navbar */}
       <Navbar theme={theme} setTheme={setTheme} />
 
-      {/* ✅ ScrollSmoother content */}
+      {/* Scroll content */}
       <div id="smooth-wrapper" ref={wrapperRef}>
         <div id="smooth-content" ref={contentRef}>
           <section id="studio">
             <Hero />
           </section>
-
           <section id="about">
             <About />
           </section>
-
           <section id="games">
             <Games />
           </section>
-
           <section id="contact">
             <ContactUs />
           </section>
-
           <Footer theme={theme} />
         </div>
       </div>
 
-      {/* Cursor outline */}
-      <div
-        ref={outlineRef}
-        className="fixed top-0 left-0 h-10 w-10 rounded-full border border-primary dark:border-white pointer-events-none z-[9999]"
-        style={{ transition: "transform 0.1s ease-out" }}
-      />
+      {/* ✅ Cursor only on desktop */}
+      {!isTouchDevice && (
+        <>
+          {/* Outline */}
+          <div
+            ref={outlineRef}
+            className="fixed top-0 left-0 h-10 w-10 rounded-full border border-primary dark:border-white pointer-events-none z-[9999]"
+            style={{
+              opacity: 0,
+              transition: "transform 0.1s ease-out",
+            }}
+          />
 
-      {/* Cursor dot */}
-      <div
-        ref={dotRef}
-        className="fixed top-0 left-0 h-3 w-3 rounded-full bg-primary dark:bg-white pointer-events-none z-[9999]"
-      />
+          {/* Dot */}
+          <div
+            ref={dotRef}
+            className="fixed top-0 left-0 h-3 w-3 rounded-full bg-primary dark:bg-white pointer-events-none z-[9999]"
+            style={{ opacity: 0 }}
+          />
+        </>
+      )}
     </div>
   );
 };

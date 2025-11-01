@@ -57,7 +57,7 @@ const GameCard = ({ label, title, image, delay }) => {
 
       {/* Text */}
       <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-        <p className="uppercase text-xs font-bold tracking-wider text-pink-500 mb-2">
+        <p className="uppercase text-xs font-bold tracking-wider text-secondary mb-2">
           • {label}
         </p>
         <h3 className="text-2xl sm:text-3xl font-extrabold leading-tight">
@@ -72,19 +72,19 @@ const Games = () => {
   const gameData = [
     {
       label: "PLAY",
-      title: "BUILD YOUR KINGDOM",
+      title: "CREATE SMALL MOMENTS",
       image: assets.game_one,
       delay: 0.1,
     },
     {
-      label: "WIN",
-      title: "CRUSH YOUR OPPONENTS",
+      label: "RELAX",
+      title: "LET WORRIES FADE",
       image: assets.game_two,
       delay: 0.3,
     },
     {
-      label: "EARN",
-      title: "EARN REAL REWARDS",
+      label: "SMILE",
+      title: "SHARE YOUR LIGHT",
       image: assets.game_three,
       delay: 0.5,
     },
@@ -106,7 +106,7 @@ const Games = () => {
         viewport={{ once: true }}
         className="text-6xl sm:text-7xl lg:text-8xl font-extrabold tracking-wider text-center mb-16"
       >
-        PLAY. WIN. EARN.
+        PLAY. RELAX. SMILE.
       </motion.h1>
 
       {/* Cards Grid */}
@@ -120,9 +120,9 @@ const Games = () => {
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.97 }}
-        className="mt-16 px-8 py-4 bg-white text-black font-bold rounded-full uppercase tracking-wide hover:bg-neutral-200 transition-all"
+        className="mt-16 px-8 py-4 bg-secondary text-black font-bold rounded-full uppercase tracking-wide hover:bg-sec-soft transition-all"
       >
-        Create Your Ink ID
+        PLAY NOW
       </motion.button>
     </section>
   );

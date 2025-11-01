@@ -9,7 +9,7 @@ const Title = ({ title, desc }) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-4xl sm:text-7xl font-extrabold text-secondary dark:text-secondary text-center"
+        className="text-4xl sm:text-7xl font-extrabold text-black dark:text-white text-center"
       >
         <BubbleText>{title}</BubbleText>
       </motion.h2>
