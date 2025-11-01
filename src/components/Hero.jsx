@@ -13,9 +13,7 @@ const Hero = () => {
           className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 float-anim drop-shadow-2xl"
         />
       ) : (
-        <span className="text-yellow-400 text-3xl md:text-5xl float-anim">
-          🪙
-        </span>
+        <span className="text-yellow-400 text-3xl md:text-5xl float-anim">🪙</span>
       ),
       delay: 0.1,
       top: "18%",
@@ -43,9 +41,7 @@ const Hero = () => {
           className="w-10 h-10 md:w-16 md:h-16 float-anim drop-shadow-2xl"
         />
       ) : (
-        <span className="text-yellow-400 text-4xl md:text-6xl float-anim">
-          🌍
-        </span>
+        <span className="text-yellow-400 text-4xl md:text-6xl float-anim">🌍</span>
       ),
       delay: 0.5,
       top: "65%",
@@ -59,9 +55,7 @@ const Hero = () => {
           className="w-7 h-7 md:w-10 md:h-10 float-anim drop-shadow-lg"
         />
       ) : (
-        <span className="text-pink-400 text-2xl md:text-3xl float-anim">
-          🐰
-        </span>
+        <span className="text-pink-400 text-2xl md:text-3xl float-anim">🐰</span>
       ),
       delay: 0.7,
       top: "78%",
@@ -75,9 +69,7 @@ const Hero = () => {
           className="w-8 h-8 md:w-12 md:h-12 float-anim drop-shadow-2xl"
         />
       ) : (
-        <span className="text-yellow-400 text-3xl md:text-5xl float-anim">
-          🪙
-        </span>
+        <span className="text-yellow-400 text-3xl md:text-5xl float-anim">🪙</span>
       ),
       delay: 0.2,
       top: "12%",
@@ -91,9 +83,7 @@ const Hero = () => {
           className="w-6 h-6 md:w-8 md:h-8 float-anim drop-shadow-lg"
         />
       ) : (
-        <span className="text-purple-400 text-xl md:text-2xl float-anim">
-          💎
-        </span>
+        <span className="text-purple-400 text-xl md:text-2xl float-anim">💎</span>
       ),
       delay: 0.4,
       top: "25%",
@@ -107,9 +97,7 @@ const Hero = () => {
           className="w-12 h-12 md:w-16 md:h-16 float-anim drop-shadow-2xl"
         />
       ) : (
-        <span className="text-cyan-400 text-4xl md:text-6xl float-anim">
-          🏹
-        </span>
+        <span className="text-cyan-400 text-4xl md:text-6xl float-anim">🏹</span>
       ),
       delay: 0.6,
       top: "38%",
@@ -137,9 +125,7 @@ const Hero = () => {
           className="w-14 h-10 md:w-20 md:h-12 float-anim drop-shadow-xl"
         />
       ) : (
-        <span className="text-green-400 text-2xl md:text-3xl float-anim">
-          💳
-        </span>
+        <span className="text-green-400 text-2xl md:text-3xl float-anim">💳</span>
       ),
       delay: 1.0,
       bottom: "5%",
@@ -162,10 +148,10 @@ const Hero = () => {
     >
       {/* --- FLOATING ELEMENTS --- */}
       <div className="absolute inset-0 pointer-events-none">
-        <style jsx>{`
+        {/* ✅ fixed: removed jsx attribute */}
+        <style>{`
           @keyframes float {
-            0%,
-            100% {
+            0%, 100% {
               transform: translateY(0px) rotate(0deg);
             }
             50% {
@@ -214,7 +200,7 @@ const Hero = () => {
         </h1>
       </motion.div>
 
-      {/* --- TILT CARD (adjusted to visually center with text) --- */}
+      {/* --- TILT CARD --- */}
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.9 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}

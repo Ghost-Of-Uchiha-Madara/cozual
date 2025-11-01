@@ -38,3 +38,14 @@
   --color-sec-mild: #99ff66;
   --color-sec-light: #aaff80;
 }
+
+body {
+  background-color: #000;
+  overscroll-behavior: none;
+  color-scheme: dark;
+}
+
+#smooth-content, section {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

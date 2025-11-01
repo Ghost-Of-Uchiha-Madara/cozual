@@ -25,7 +25,7 @@ const GameCard = ({ label, title, image, delay }) => {
   return (
     <motion.div
       ref={ref}
-      className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-gradient-to-b from-neutral-900 to-neutral-800 cursor-pointer"
+      className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-sec-soft cursor-pointer"
       style={{
         rotateX,
         rotateY,
@@ -93,7 +93,7 @@ const Games = () => {
   return (
     <section
       id="games"
-      className="relative min-h-screen flex flex-col items-center justify-center bg-[#0e0e0e] text-white overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center bg-black text-white overflow-hidden"
     >
       {/* Section Title */}
       <motion.h1
@@ -124,9 +124,6 @@ const Games = () => {
       >
         Create Your Ink ID
       </motion.button>
-
-      {/* Smooth fade at bottom for transition to next section */}
-      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/90 to-transparent pointer-events-none" />
     </section>
   );
 };

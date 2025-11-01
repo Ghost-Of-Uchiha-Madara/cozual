@@ -54,7 +54,7 @@ const AboutCard = ({ about }) => {
     >
       {/* Tilt wrapper */}
       <motion.div
-        className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-secondary/20 border border-gray-200 dark:border-gray-700"
+        className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-secondary/90 border border-gray-200 dark:border-gray-700"
         style={{
           rotateX,
           rotateY,
