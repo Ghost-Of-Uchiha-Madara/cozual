@@ -205,9 +205,9 @@ const Hero = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="z-10 text-center px-4 mt-[-20vh]" // <-- moved text slightly downward
+        className="z-10 text-center px-4 mt-[-18vh]"
       >
-        <h1 className="text-7xl sm:text-7xl md::text-[12rem] lg:text-[15rem] xl:text-[15rem] 2xl:text-[15rem] font-extrabold leading-[0.85] tracking-[0.02em] flex flex-col items-center mx-auto">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[10rem] xl:text-[8rem] 2xl:text-[12rem] font-extrabold leading-[0.85] tracking-[0.02em] flex flex-col items-center mx-auto">
           <span className="text-white">STEP INTO</span>
           <span className="text-white mt-[0.1em]">WORLDS MADE</span>
           <span className="text-white mt-[0.1em]">FOR YOU</span>
